@@ -5,7 +5,25 @@ fn main() {
 }
 
 pub fn part1(input: &str) -> String {
-    "todo!()".to_string()
+    let output = input
+        .lines()
+        .map(|line|{
+            let mut it =
+                line.chars().filter_map(|character|{
+                    character.to_digit(10)
+                });
+            let first = 
+                it.next().expect("should be a number");
+            let last = it.last();
+            match last {
+                Some(num) => format!("{first}{num}"),
+                None => format!("{first}{first}"),
+            }
+            .parse::<u32>()
+            .expect("should be a number")
+    })
+    .sum::<u32>();
+    output.to_string()
 }
 
 #[cfg(test)]
@@ -14,7 +32,10 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        let result = part1("");
-        assert_eq!(result, "0".to_string());
+        let result = part1("1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet");
+        assert_eq!(result, "142".to_string());
     }
 }
