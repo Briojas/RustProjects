@@ -5,7 +5,7 @@ fn main() {
 }
 
 pub fn part2(input: &str) -> String {
-    let output = "TODO"
+    let output = "TODO";
     output.to_string()
 }
 
