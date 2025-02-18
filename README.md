@@ -6,15 +6,9 @@ Repo for practicing rust
 For testing solution:
 ```bash
 cargo test test_part1
-
-cargo test test_part2
-
 ```
 
 For running solution on input data:
 ```bash
 cargo run --bin part1
-
-cargo run --bin part2
-
 ```
