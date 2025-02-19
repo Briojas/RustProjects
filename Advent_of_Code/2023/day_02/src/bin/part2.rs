@@ -4,7 +4,7 @@ fn main() {
     dbg!(output);
 }
 
-pub fn part2(input: &str) -> String {
+pub fn part2(_input: &str) -> String {
     let output = "TODO";
     output.to_string()
 }

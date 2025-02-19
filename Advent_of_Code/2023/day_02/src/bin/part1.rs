@@ -9,38 +9,40 @@ pub fn part1(input: &str) -> String {
     let max_green = 13;
     let max_blue = 14;
 
-    let mut total = 0;
-    let mut id = 0;
-    let mut value = 0;
+    let mut result = 0;
 
     let _output = input
         .lines()
         .map(|line|{
-            for word in line.split_whitespace() {
-                if word.contains(":") {
-                    id = word[0..1].parse::<i32>().unwrap();
-                } else if word.parse::<i32>().is_ok() {
-                    value = word.parse::<i32>().unwrap();
-                } else if word == "blue," {
-                    if value > max_blue {
-                        id = 0;
-                        break;
-                    }
-                } else if word == "green," {
-                    if value > max_green {
-                        id = 0;
-                        break;
-                    }
-                } else if word == "red," {
-                    if value > max_red {
-                        id = 0;
-                        break;
+            let mut game = line.split(": ");
+            println!("{:?}", game);
+            let _game_id = game.next().unwrap();
+            println!("{:?}", _game_id);
+            let game = game.next().unwrap();
+            let colors = game.split("; ");
+            println!("{:?}", colors);
+            let mut red = 0;
+            let mut green = 0;
+            let mut blue = 0;
+            for color in colors {
+                let color = color.split(", ");
+                for c in color {
+                    let mut c = c.split_whitespace();
+                    let count = c.next().unwrap().parse::<i32>().unwrap();
+                    let color = c.next().unwrap();
+                    match color {
+                        "red" => red += count,
+                        "green" => green += count,
+                        "blue" => blue += count,
+                        _ => (),
                     }
                 }
             }
-            total = total + id;
+            if red <= max_red && green <= max_green && blue <= max_blue {
+                result += _game_id.parse::<i32>().unwrap();
+            }
         });
-    total.to_string()
+    result.to_string()
 }
 
 #[cfg(test)]
@@ -54,6 +56,7 @@ Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
 Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
 Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green");
-        assert_eq!(result, "8".to_string());
+        let answer = 1 + 2 + 5; // Game 1, Game 2, and Game 5 are valid 
+        assert_eq!(result, answer.to_string());
     }
 }
