@@ -5,10 +5,6 @@ fn main() {
 }
 
 pub fn part2(_input: &str) -> String {
-    let max_red = 12;
-    let max_green = 13;
-    let max_blue = 14;
-
     let mut result = 0;
 
     let _output = _input
@@ -16,7 +12,6 @@ pub fn part2(_input: &str) -> String {
         .for_each(|line|{
             let mut game = line.split(": ");
             let _game_id = game.next().unwrap();
-            let game_id_number = _game_id.split_whitespace().nth(1).unwrap().parse::<i32>().unwrap();
             let game = game.next().unwrap();
             let colors = game.split("; ");
             let mut red_highest = 0;
@@ -36,9 +31,7 @@ pub fn part2(_input: &str) -> String {
                     }
                 }
             }
-            if red_highest <= max_red && green_highest <= max_green && blue_highest <= max_blue {
-                result += game_id_number;
-            }
+            result += red_highest*green_highest*blue_highest;
         });
     result.to_string()
 }
@@ -49,13 +42,11 @@ mod tests {
 
     #[test]
     fn test_part2() {
-        let result = part2("two1nine
-eightwothree
-abcone2threexyz
-xtwone3four
-4nineeightseven2
-zoneight234
-7pqrstsixteen");
-        assert_eq!(result, "281".to_string());
+        let result = part2("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green");
+        assert_eq!(result, "2286".to_string());
     }
 }
