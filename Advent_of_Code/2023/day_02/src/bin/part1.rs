@@ -1,5 +1,6 @@
 fn main() {
     let input = include_str!("./input1.txt");
+    dbg!(input); // Debug statement to inspect the input
     let output = part1(input);
     dbg!(output);
 }
@@ -13,17 +14,20 @@ pub fn part1(input: &str) -> String {
 
     let _output = input
         .lines()
-        .map(|line|{
+        .for_each(|line|{
+            dbg!(line); // Debug statement to inspect each line
             let mut game = line.split(": ");
-            println!("{:?}", game);
+            dbg!(&game);
             let _game_id = game.next().unwrap();
-            println!("{:?}", _game_id);
+            dbg!(&_game_id); // Debug statement to inspect the game_id
+            let game_id_number = _game_id.split_whitespace().nth(1).unwrap().parse::<i32>().unwrap();
+            dbg!(&game_id_number); // Debug statement to inspect the game_id_number
             let game = game.next().unwrap();
             let colors = game.split("; ");
-            println!("{:?}", colors);
-            let mut red = 0;
-            let mut green = 0;
-            let mut blue = 0;
+            dbg!(&colors); // Debug statement to inspect the colors iterator
+            let mut red_highest = 0;
+            let mut green_highest = 0;
+            let mut blue_highest = 0;
             for color in colors {
                 let color = color.split(", ");
                 for c in color {
@@ -31,15 +35,15 @@ pub fn part1(input: &str) -> String {
                     let count = c.next().unwrap().parse::<i32>().unwrap();
                     let color = c.next().unwrap();
                     match color {
-                        "red" => red += count,
-                        "green" => green += count,
-                        "blue" => blue += count,
+                        "red" => if count > red_highest { red_highest = count },
+                        "green" => if count > green_highest { green_highest = count },
+                        "blue" => if count > blue_highest { blue_highest = count },
                         _ => (),
                     }
                 }
             }
-            if red <= max_red && green <= max_green && blue <= max_blue {
-                result += _game_id.parse::<i32>().unwrap();
+            if red_highest <= max_red && green_highest <= max_green && blue_highest <= max_blue {
+                result += game_id_number;
             }
         });
     result.to_string()
