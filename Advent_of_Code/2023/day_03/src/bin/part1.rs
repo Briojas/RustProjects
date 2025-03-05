@@ -15,7 +15,19 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        let result = part1("");
-        assert_eq!(result, "".to_string());
+        //Add the numbers only touching a symbol (even diagonally) in the following grid:
+        let result = part1("467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..");
+        //From the above grid, we have 467, 35, 633, 617, 592, 755, 664, 598 touching a symbol.
+        //Adding them up gives 4361.
+        assert_eq!(result, "4361".to_string());
     }
 }
