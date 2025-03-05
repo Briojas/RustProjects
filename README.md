@@ -2,6 +2,12 @@
 Repo for practicing rust 
 
 ## Advent of Code Commands
+For new day setup:
+```bash
+cargo new day_XX
+```
+	- replace main.rs with 'bin' folder in 'Day Template'
+	- add .vscode folder from 'Day Template', and update 'day_XX' in launch.json
 
 For testing solution:
 ```bash
